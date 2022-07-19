@@ -1,6 +1,6 @@
-package com.nttdata.purchaseservice.service;
+package com.nttdata.purchase.service;
 
-import com.nttdata.purchaseservice.entity.Purchase;
+import com.nttdata.purchase.entity.Purchase;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -12,7 +12,7 @@ public interface PurchaseService {
 
     Mono<Purchase> save(Purchase purchase);
 
-    Mono<Purchase> update(String id, Purchase purchase);
+    Mono<Purchase> update(Purchase purchase);
 
     Mono<Purchase> delete(String id);
 }

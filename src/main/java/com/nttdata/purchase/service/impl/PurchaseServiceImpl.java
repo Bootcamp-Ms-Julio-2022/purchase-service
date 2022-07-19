@@ -1,8 +1,8 @@
-package com.nttdata.purchaseservice.service.impl;
+package com.nttdata.purchase.service.impl;
 
-import com.nttdata.purchaseservice.entity.Purchase;
-import com.nttdata.purchaseservice.repository.PurchaseRepository;
-import com.nttdata.purchaseservice.service.PurchaseService;
+import com.nttdata.purchase.entity.Purchase;
+import com.nttdata.purchase.repository.PurchaseRepository;
+import com.nttdata.purchase.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -29,19 +29,20 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Mono<Purchase> save(Purchase purchase) {
         purchase.setCreatedAt(new Date());
+        purchase.setState("active");
         return purchaseRepository.save(purchase);
     }
 
     @Override
-    public Mono<Purchase> update(String id, Purchase purchase) {
-        return purchaseRepository.findById(id)
+    public Mono<Purchase> update(Purchase purchase) {
+        return purchaseRepository.findById(purchase.getId())
                 .flatMap(p -> {
                     p.setCustomerId(purchase.getCustomerId());
-                    p.setCustomerType(purchase.getCustomerType());
-                    p.setCustomerName(purchase.getCustomerName());
+//                    p.setCustomerType(purchase.getCustomerType());
+//                    p.setCustomerName(purchase.getCustomerName());
                     p.setProductId(purchase.getProductId());
-                    p.setProductType(purchase.getProductType());
-                    p.setProductCategory(purchase.getProductCategory());
+//                    p.setProductType(purchase.getProductType());
+//                    p.setProductCategory(purchase.getProductCategory());
                     p.setState(purchase.getState());
                     p.setAccountNo(purchase.getAccountNo());
                     p.setBalance(purchase.getBalance());
@@ -51,11 +52,11 @@ public class PurchaseServiceImpl implements PurchaseService {
                     p.setTransactionLimitPerMonthNumber(purchase.getTransactionLimitPerMonthNumber());
                     p.setMaxQtyOfCreditsAllowed(purchase.getMaxQtyOfCreditsAllowed());
                     p.setCreditLimitAmount(purchase.getCreditLimitAmount());
-                    p.setHeadlines(purchase.getHeadlines());
-                    p.setAuthSigners(purchase.getAuthSigners());
+//                    p.setHeadlines(purchase.getHeadlines());
+//                    p.setAuthSigners(purchase.getAuthSigners());
                     p.setTransactionsMadeByCustomerInCurrentMonth(purchase.getTransactionsMadeByCustomerInCurrentMonth());
                     p.setPurchaseSource(purchase.getPurchaseSource());
-                    p.setTransactions(purchase.getTransactions());
+//                    p.setTransactions(purchase.getTransactions());
                     return purchaseRepository.save(p);
                 });
     }

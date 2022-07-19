@@ -1,7 +1,9 @@
-package com.nttdata.purchaseservice.entity;
+package com.nttdata.purchase.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Document(collection = "purchase")
 public class Purchase {
 
@@ -49,17 +53,18 @@ public class Purchase {
 
     private Double creditLimitAmount;
 
-    private String[] headlines;
-
-    private String[] authSigners;
+//    private String[] headlines;
+//
+//    private String[] authSigners;
 
     private Integer transactionsMadeByCustomerInCurrentMonth;
 
     private String purchaseSource;
 
-    private List<Transaction> transactions;
+//    private List<Transaction> transactions;
 
-    public Purchase() {
-        this.transactions = new ArrayList<>();
-    }
+//    public Purchase() {
+//        this.transactions = new ArrayList<>();
+//    }
+
 }

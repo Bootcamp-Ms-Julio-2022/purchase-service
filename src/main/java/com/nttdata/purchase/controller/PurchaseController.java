@@ -1,7 +1,7 @@
-package com.nttdata.purchaseservice.controller;
+package com.nttdata.purchase.controller;
 
-import com.nttdata.purchaseservice.entity.Purchase;
-import com.nttdata.purchaseservice.service.PurchaseService;
+import com.nttdata.purchase.entity.Purchase;
+import com.nttdata.purchase.service.PurchaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,16 +39,16 @@ public class PurchaseController {
 
     @PostMapping
     public Mono<Purchase> save(@RequestBody Purchase purchase) {
-        log.info("Registering new purchase - customer name: " + purchase.getCustomerName() + ", product category: " + purchase.getProductCategory());
+        log.info("Registering new purchase - customer: " + purchase.getCustomerId() + ", product: " + purchase.getProductId());
         return purchaseService.save(purchase);
     }
 
     // -------------------Update a purchase
 
-    @PutMapping("/{id}")
-    public Mono<ResponseEntity<Purchase>> update(@PathVariable("id") String id, @RequestBody Purchase purchase) {
-        log.info("Updating purchase with id: " + id);
-        return purchaseService.update(id, purchase)
+    @PutMapping
+    public Mono<ResponseEntity<Purchase>> update(@RequestBody Purchase purchase) {
+        log.info("Updating purchase with id: " + purchase.getId());
+        return purchaseService.update(purchase)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
