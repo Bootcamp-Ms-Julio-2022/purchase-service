@@ -62,4 +62,12 @@ public class PurchaseController {
                 .map(p -> ResponseEntity.ok().<Void>build())
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
+    // -------------------Find customer purchases by id
+
+    @GetMapping("/customer/{id}")
+    public Flux<Purchase> retrievePurchasesFromCustomer(@PathVariable("id") String id) {
+        log.info("Retrieving purchases from customer: " + id);
+        return purchaseService.findCustomerPurchases(id);
+    }
 }

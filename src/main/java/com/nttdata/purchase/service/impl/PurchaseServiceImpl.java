@@ -38,11 +38,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         return purchaseRepository.findById(purchase.getId())
                 .flatMap(p -> {
                     p.setCustomerId(purchase.getCustomerId());
-//                    p.setCustomerType(purchase.getCustomerType());
-//                    p.setCustomerName(purchase.getCustomerName());
                     p.setProductId(purchase.getProductId());
-//                    p.setProductType(purchase.getProductType());
-//                    p.setProductCategory(purchase.getProductCategory());
                     p.setState(purchase.getState());
                     p.setAccountNo(purchase.getAccountNo());
                     p.setBalance(purchase.getBalance());
@@ -52,11 +48,8 @@ public class PurchaseServiceImpl implements PurchaseService {
                     p.setTransactionLimitPerMonthNumber(purchase.getTransactionLimitPerMonthNumber());
                     p.setMaxQtyOfCreditsAllowed(purchase.getMaxQtyOfCreditsAllowed());
                     p.setCreditLimitAmount(purchase.getCreditLimitAmount());
-//                    p.setHeadlines(purchase.getHeadlines());
-//                    p.setAuthSigners(purchase.getAuthSigners());
                     p.setTransactionsMadeByCustomerInCurrentMonth(purchase.getTransactionsMadeByCustomerInCurrentMonth());
                     p.setPurchaseSource(purchase.getPurchaseSource());
-//                    p.setTransactions(purchase.getTransactions());
                     return purchaseRepository.save(p);
                 });
     }
@@ -66,5 +59,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         return purchaseRepository.findById(id)
                 .flatMap(p -> purchaseRepository.delete(p)
                         .then(Mono.just(p)));
+    }
+
+    @Override
+    public Flux<Purchase> findCustomerPurchases(String id) {
+        return purchaseRepository.findAllByCustomerId(id);
     }
 }
